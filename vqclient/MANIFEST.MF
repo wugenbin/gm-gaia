@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.ntc.gaia.voice.MainFrame
+Class-Path: . lib/json-jena-1.0.jar lib/Msc.jar lib/log4j.jar
+Created-By: William
