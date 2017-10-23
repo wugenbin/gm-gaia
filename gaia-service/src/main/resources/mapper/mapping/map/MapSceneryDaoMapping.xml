@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ntc.gaia.service.dao.map.impl.MapSceneryDaoImpl">
+
+    <resultMap id="SceneryMap" type="com.ntc.gaia.base.model.map.Scenery" >
+        <id property="id" column="id"/>
+        <result property="name" column="sceneName"/>
+        <result property="lng" column="lng"/>
+        <result property="lat" column="lat"/>
+        <result property="provinceCode" column="provinceCode"/>
+        <result property="cityCode" column="cityCode"/>
+        <result property="address" column="address"/>
+        <result property="loadStatus" column="loadStatus"/>
+    </resultMap>
+
+    <select id="getSceneryListByCityCode" parameterType="String" resultMap="SceneryMap">
+        SELECT
+          *
+        FROM
+          ntc_gaia_scene
+        WHERE
+          CITYCODE=#{cityCode}
+        ORDER BY
+          MAPORDER
+    </select>
+
+</mapper>

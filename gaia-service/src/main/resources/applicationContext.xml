@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:util="http://www.springframework.org/schema/util"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                    http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/util 
+	                    http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd 
+					 	http://www.springframework.org/schema/context 
+					 	http://www.springframework.org/schema/context/spring-context.xsd
+					 	">
+
+	<!-- 配置扫描com.ntc.gaia.service包下所有注解的类文件 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.ntc.gaia.service" />
+
+	<!-- 配置 RPC hetty服务器的自动启动 -->
+	<bean id="HettyBootstrap" class="com.ntc.gaia.base.rpc.hetty.core.HettyBootstrap" init-method="start"></bean>
+	<bean id="carBusiness" class="com.ntc.gaia.service.business.transport.impl.CarBusinessImpl" init-method="initCars"></bean>
+
+	<!-- 在service组件中因为暂无需调用远程的对象及其方法，所以暂无需配置Rpc代理，如<bean id="rpcProxy" class="com.ntc.obshetty.hetty.client.RpcProxy"></bean>-->
+
+	<!--datasource bean的配置 放在了gaia-base-persist组件中 采用了在gaia-base-persist组件的applicationContext.xml文件中引入spring-mybatis.xml文件，然后在spring-mybatis.xml文件中进行datasource的配置 -->
+    <!-- gaia-service组件依赖了gaia-base-persist组件，所以在gaia-base-persist组件的applicationContext.xml文件中进行datasource的配置是一样的    -->
+</beans>

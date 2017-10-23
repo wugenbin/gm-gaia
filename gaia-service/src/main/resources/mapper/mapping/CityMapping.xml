@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ntc.gaia.service.dao.city.impl.CityDaoImpl">
+
+    <select id="findCityByUserId" parameterType="Integer" resultType="City">
+           select c.*
+           from
+           ntc_gaia_city c ,ntc_gaia_user_city uc
+           where
+           c.id = uc.cityId and uc.userId = #{userId}
+
+    </select>
+
+    <select id="findCityById" parameterType="Integer" resultType="City">
+        select
+        *
+        from
+        ntc_gaia_city
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="findAllCity"  resultType="City">
+        select
+        *
+        from
+        ntc_gaia_city
+    </select>
+
+    <insert id="addCity"  parameterType="City">
+        insert into ntc_gaia_city
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cityName != null" >
+                cityName,
+            </if>
+            <if test="cityLevel != null" >
+                cityLevel,
+            </if>
+            <if test="cityCode != null" >
+                cityCode,
+            </if>
+            <if test="provinceId != null" >
+                provinceId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cityName != null" >
+                #{cityName},
+            </if>
+            <if test="cityLevel != null" >
+                #{cityLevel},
+            </if>
+            <if test="cityCode != null" >
+                cityCode,
+            </if>
+            <if test="provinceId != null" >
+                provinceId,
+            </if>
+        </trim>
+    </insert>
+
+    <update id="saveCity" parameterType="City">
+        update ntc_gaia_city t
+        <set>
+            <trim suffixOverrides=",">
+                <if test="cityName != null" >
+                    cityName =  #{cityName},
+                </if>
+                <if test="cityLevel != null" >
+                    cityLevel = #{cityLevel},
+                </if>
+                <if test="cityCode != null" >
+                    cityCode = #{cityCode},
+                </if>
+                <if test="provinceId != null" >
+                    provinceId = #{provinceId},
+                </if>
+            </trim>
+        </set>
+        where
+        t.id = #{id}
+    </update>
+
+    <delete id="deleteCity"  parameterType="Integer">
+        delete from
+        ntc_gaia_city
+        WHERE
+        id = #{id}
+    </delete>
+
+    <select id="findCityByCityName"  parameterType="String" resultType="City">
+        SELECT * from
+        ntc_gaia_city
+        WHERE
+        cityName = #{cityName}
+    </select>
+
+    <select id="findCityByProvinceId"  parameterType="Integer" resultType="City">
+        SELECT * from
+        ntc_gaia_city
+        WHERE
+        provinceId = #{provinceId}
+    </select>
+
+    <select id="findAllProvince"  resultType="Province">
+        SELECT * from
+        ntc_gaia_province
+    </select>
+    <!--findAllProvince-->
+</mapper>
